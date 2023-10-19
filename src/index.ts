@@ -3,21 +3,20 @@ import express from "express";
 const app = express();
 
 app.get('/users/:id', (req, res) =>{
-    return res.send('Get Films');
+    return res.send('Get user');
 })
 
 app.post('/users/:id', (req, res) =>{
-    return res.send('Create Films');
+    return res.send('Create user');
 })
 
 app.put('/users/:id', (req, res) =>{
-    const filmsId = req.params.id
 
-    return res.send('Update Films ' + filmsId);
+    return res.send('Update user');
 })
 
 app.delete('/users/:id', (req, res) =>{
-    return res.send('Delete Films');
+    return res.send('Delete user');
 })
 
 app.listen(4000, () =>{
