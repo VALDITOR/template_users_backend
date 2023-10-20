@@ -1,24 +1,24 @@
 import express from "express";
 
+import { router } from "./routes/userRoutes"
+import { AppDataSource } from "./db";
+
 const app = express();
 
-app.get('/users/:id', (req, res) =>{
-    return res.send('Get user');
+const PORT = process.env.PORT || 5050;
+
+app.use(express.json())
+
+app.use('/users', router)
+
+AppDataSource.initialize()
+.then(() => {
+ console.log('Database connected');
+})
+.catch(error => {
+ console.log(error)
 })
 
-app.post('/users/:id', (req, res) =>{
-    return res.send('Create user');
-})
-
-app.put('/users/:id', (req, res) =>{
-
-    return res.send('Update user');
-})
-
-app.delete('/users/:id', (req, res) =>{
-    return res.send('Delete user');
-})
-
-app.listen(4000, () =>{
-    console.log("Server Running");
+app.listen(PORT, () =>{
+    console.log(`Server Running ${PORT}`);
 })
