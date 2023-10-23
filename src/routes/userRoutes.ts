@@ -1,11 +1,13 @@
 import { Router } from "express";
-import { getUsersById, createUsersById, updateUsersById, delateUserById } from "../controllers/usersController"
+import { getUsersById, createUsersById, updateUsersById, delateUserById, registerUser} from "../controllers/usersController"
 
 const router = Router();
 
 router.get('/:id', getUsersById)
+router.post('/register', registerUser)
 
 router.post('/:id', createUsersById)
+
 
 router.put('/:id', updateUsersById)
 

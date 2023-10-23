@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { Users } from "../models/Users";
+import { error } from "console";
+import bcrypt from "bcrypt";
 
 
 const getUsersById = async (req: Request, res: Response) =>{
@@ -33,6 +35,27 @@ try{
 }
 }
 
+const registerUser = async(req: Request, res: Response) =>{
+    console.log('holaaaaaaaaaaaaaaaaaaaaaaaaa');
+    try{
+        const username = req.body.username
+        const email = req.body.email
+        const password = req.body.password
+
+        const encrypt = bcrypt.hashSync(password, 10);
+
+        const newUser = await Users.create({
+            username: username,
+            email: email,
+            password: encrypt
+        }).save();
+
+        return res.send(newUser)
+    } catch(error) {
+        return res.send(error);
+    }
+    }
+
 const updateUsersById = (req: Request, res: Response) =>{
     return res.send('Update user');
     try{
@@ -59,4 +82,4 @@ const delateUserById = async (req: Request, res: Response) =>{
 }
 
     
-export { getUsersById, createUsersById, updateUsersById, delateUserById };
+export { getUsersById, createUsersById, updateUsersById, delateUserById, registerUser };
